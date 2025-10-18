@@ -1,72 +1,134 @@
-Generative-AI-for-Muography
 
-This repository contains Jupyter notebooks, source code, comprehensive documentation, and presentation materials explaining the implementation.
+---
 
-Muon Propagation Simulation with Generative Adversarial Networks
+## 🧠 Generative AI for Muography
 
-This project is a Master's thesis focused on the development of a surrogate model for muon propagation in matter using machine learning. The primary goal is to create a high-speed alternative to computationally expensive Monte Carlo simulations (like Geant4) by training a conditional Generative Adversarial Network (GAN) to learn the complex, stochastic physics of muon-matter interactions.
+This repository contains **Jupyter notebooks**, **source code**, **documentation**, and **presentation materials** explaining the full implementation.
 
-Motivation
+---
 
-Muography is a powerful imaging technique that uses cosmic-ray muons to map the density of large-scale structures. A major bottleneck in this field is the significant computational cost and time required to generate the millions of simulated particle tracks needed for a high-resolution study. This project aims to address this challenge by developing a GAN that can generate physically realistic interaction steps in a fraction of the time, serving as a high-speed complement to traditional simulation methods.
+### 🎯 Project Overview
 
-Key Features
+**Muon Propagation Simulation with Generative Adversarial Networks**
 
-Conditional GAN Architecture: An MLP-based conditional GAN built in PyTorch that learns to generate the three key outcomes of a muon interaction step: momentum loss (-ΔP), scattering angle (Δθ), and step length (Δr), conditioned on the muon's energy and the material's properties.
+This project is part of a **Master’s thesis** focused on developing a **surrogate model** for muon propagation in matter using **machine learning**.
+The primary goal is to create a **high-speed alternative** to computationally expensive **Monte Carlo simulations** (e.g., Geant4) by training a **conditional Generative Adversarial Network (GAN)** to learn the complex, stochastic physics of muon–matter interactions.
 
-Advanced Data Processing: A custom GANDataset class that handles loading of Geant4 data and applies a specialized two-pipeline normalization strategy to ensure training stability.
+---
 
-Hyperparameter Optimization: Systematic hyperparameter search for the GAN architecture and optimizers using the Optuna framework.
+### 💡 Motivation
 
-Advanced GAN Architectures: Implementation and comparison of multiple GAN variants, including the original vanilla GAN (2014) and the Wasserstein GAN (WGAN), to address common training challenges.
+**Muography** is a powerful imaging technique that uses cosmic-ray muons to map the density of large-scale structures.
+A major bottleneck in this field is the **significant computational cost and time** required to generate millions of simulated particle tracks for high-resolution studies.
 
-Evaluation Framework: A suite of callback tools for in-depth model evaluation, including the generation of 1D/2D histograms, pair plots, and Cumulative Distribution Functions (CDFs) to compare generated data against the ground truth.
+This project aims to overcome this challenge by developing a **GAN-based surrogate model** capable of generating **physically realistic muon interaction steps** in a fraction of the time — serving as a **high-speed complement** to traditional simulation methods.
 
-Environment Setup
+---
 
-This project uses conda for environment management.
+### 🔑 Key Features
 
-Clone the repository:
+* **Conditional GAN Architecture**
+  An MLP-based conditional GAN built in **PyTorch** that learns to generate the three key outcomes of a muon interaction step:
 
+  * Momentum loss (−ΔP)
+  * Scattering angle (Δθ)
+  * Step length (Δr)
+    Conditioned on the muon’s energy and the material’s properties.
+
+* **Advanced Data Processing**
+  A custom `GANDataset` class for loading Geant4 data and applying a **two-pipeline normalization strategy** to ensure training stability.
+
+* **Hyperparameter Optimization**
+  Systematic search for optimal architecture and optimizer parameters using the **Optuna** framework.
+
+* **Advanced GAN Variants**
+  Implementation and comparison of multiple architectures, including:
+
+  * Vanilla GAN (Goodfellow et al., 2014)
+  * Wasserstein GAN (WGAN)
+
+* **Evaluation Framework**
+  A suite of callback tools for in-depth evaluation, including:
+
+  * 1D/2D histograms
+  * Pair plots
+  * Cumulative Distribution Functions (CDFs)
+    for comparing generated and ground-truth data.
+
+---
+
+### ⚙️ Environment Setup
+
+This project uses **Conda** for environment management.
+
+#### 1. Clone the repository
+
+```bash
 git clone <your-repository-url>
 cd Generative-AI-for-Muography
+```
 
+#### 2. Create the conda environment
 
-Create the conda environment. Choose the appropriate file based on your hardware.
+Choose the appropriate file based on your hardware:
 
-CPU:
+**CPU:**
 
+```bash
 conda env create -n ENVNAME --file env.yml
+```
 
+**GPU:**
 
-GPU:
-
+```bash
 conda env create -n ENVNAME --file env_gpu.yml
+```
 
+> **Note:** The GPU environment assumes **CUDA 11.8**.
+> Check your CUDA version with:
+>
+> ```bash
+> nvidia-smi
+> ```
+>
+> and update the `.yml` file if needed.
 
-Note: The GPU environment assumes CUDA version 11.8. Please check your CUDA version (e.g., using nvidia-smi) and adapt the .yml file if necessary.
+#### 3. Activate the environment
 
-Activate the environment:
-
+```bash
 conda activate ENVNAME
+```
 
+---
 
-Project Structure
+### 📁 Project Structure
 
-data/: Directory for storing the input Geant4 .root files (not included in the repo).
+```
+Generative-AI-for-Muography/
+├── data/         # Input Geant4 .root files (not included)
+├── notebooks/    # Jupyter notebooks for data exploration, training, and evaluation
+├── src/          # Core Python scripts and class definitions
+├── env.yml       # Conda environment (CPU)
+├── env_gpu.yml   # Conda environment (GPU)
+└── README.md
+```
 
-notebooks/: Contains Jupyter notebooks for data exploration, model training, and evaluation.
+---
 
-src/: Contains all the core Python scripts and class definitions.
+### 🚀 Workflow and Usage
 
-Workflow and Usage
+The project workflow is organized into Jupyter notebooks within the `notebooks/` directory.
+For a full end-to-end run, execute the notebooks in the recommended order listed there.
 
-The project is organized into a series of Jupyter notebooks in the notebooks/ directory. For a complete workflow, it is recommended to run them in the following order:
+Before running any notebook, add the `src` directory to your Python path:
 
-Note: Before running any notebook, you must add the src directory to the system path by including the following lines at the top of the notebook:
-
+```python
 import os
 import sys
 src_path = os.path.abspath('../src/')
 if src_path not in sys.path:
     sys.path.append(src_path)
+```
+
+---
+
